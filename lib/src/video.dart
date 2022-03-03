@@ -147,7 +147,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
     var widgetsBinding = WidgetsBinding.instance!;
 
     widgetsBinding.addPostFrameCallback((callback) {
-      widgetsBinding.addPostFrameCallback((callback) {
       widgetsBinding.addPersistentFrameCallback((callback) {
         if (!mounted) return;
         var orientation = MediaQuery.of(context).orientation;
