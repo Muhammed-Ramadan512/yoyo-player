@@ -185,6 +185,9 @@ class _YoYoPlayerState extends State<YoYoPlayer>
   void dispose() {
     m3u8clean();
     controller!.dispose();
+    controlBottomBarAnimation.dispose();
+    controlTopBarAnimation.dispose();
+    controlBarAnimationController.dispose();
     super.dispose();
   }
 
