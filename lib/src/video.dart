@@ -247,6 +247,10 @@ class _YoYoPlayerState extends State<YoYoPlayer>
       DeviceOrientation.landscapeRight,
     ]);
 
+     if (timer.isActive) {
+      timer.cancel();
+    }
+
     super.dispose();
   }
 
