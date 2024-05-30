@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_video_progress/smooth_video_progress.dart';
 import 'package:video_player/video_player.dart';
@@ -47,23 +46,26 @@ Widget bottomBar({
                   Column(
                     children: [
                       // if (controller!.value.isPlaying)
-                      SmoothVideoProgress(
-                        controller: controller!,
-                        builder: (context, position, duration, child) =>
-                            Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: Slider(
-                            onChangeStart: (_) => controller.pause(),
-                            onChangeEnd: (_) => controller.play(),
-                            onChanged: (value) => controller
-                                .seekTo(Duration(milliseconds: value.toInt())),
-                            value: position.inMilliseconds.toDouble(),
-                            divisions: duration.inSeconds,
-                            // min: cu,
-                            label: convertDurationToString(
-                                controller.value.position),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: SmoothVideoProgress(
+                          controller: controller!,
+                          builder: (context, position, duration, child) =>
+                              Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Slider(
+                              onChangeStart: (_) => controller.pause(),
+                              onChangeEnd: (_) => controller.play(),
+                              onChanged: (value) => controller.seekTo(
+                                  Duration(milliseconds: value.toInt())),
+                              value: position.inMilliseconds.toDouble(),
+                              divisions: duration.inSeconds,
+                              // min: cu,
+                              label: convertDurationToString(
+                                  controller.value.position),
 
-                            max: duration.inMilliseconds.toDouble(),
+                              max: duration.inMilliseconds.toDouble(),
+                            ),
                           ),
                         ),
                       ),
@@ -76,26 +78,29 @@ Widget bottomBar({
                       //   padding:
                       //       EdgeInsets.only(left: 5.0, right: 5, bottom: 5),
                       // ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              videoSeek!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 17),
-                            ),
-                            Text(
-                              videoDuration!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 17),
-                            ),
-                          ],
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                videoSeek!,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 17),
+                              ),
+                              Text(
+                                videoDuration!,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 17),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
