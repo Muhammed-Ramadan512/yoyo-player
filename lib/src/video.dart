@@ -259,9 +259,8 @@ class _YoYoPlayerState extends State<YoYoPlayer>
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-
-    if (timer.isActive) {
-      timer.cancel();
+    if (timer != null) {
+      timer?.cancel();
     }
 
     super.dispose();
@@ -600,7 +599,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
             if (isNetwork) {
               auURL = audioURL;
             } else {
-              print(match);
               final auDataURL = match!.group(0);
               auURL = "$auDataURL$audioURL";
               debugPrint("url network audio  $url $audioURL");
@@ -688,7 +686,7 @@ class _YoYoPlayerState extends State<YoYoPlayer>
   Set<dynamic> watchedAnalaysis = {};
 
   dynamic lastProgressMinute = -1;
-  late Timer timer;
+  Timer? timer;
 
   Future<void> updateVideoProgress() async {
     try {
@@ -903,9 +901,9 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 
   void localM3U8play(String url) async {
     controller!.dispose();
-    if (timer.isActive) {
-      timer.cancel();
-    }
+
+    // timer.cancel();
+
     final lastPlayedPos = await controller!.position;
     controller = VideoPlayerController.networkUrl(
       Uri.parse(url),
@@ -939,7 +937,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 
         if (widget.isVideoProgressenable == 1 && widget.contentViewId != null) {
           if (controller!.value.position.inSeconds != null) {
-            print(controller!.value.position.inSeconds);
             controller!.value.position.inSeconds;
             final second = controller!.value.position.inSeconds;
             if (second != null) {
