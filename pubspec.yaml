@@ -15,12 +15,13 @@ dependencies:
   orientation:
   path_provider:
   flutter_screen_wake:
-  video_player: ^2.7.0
+  video_player:
   video_player_web_hls:
   font_awesome_flutter:
-  wakelock:
+  wakelock_plus:
   flutter_secure_storage:
   smooth_video_progress:
+  win32: 5.13.0
 
 dev_dependencies:
   flutter_test:
