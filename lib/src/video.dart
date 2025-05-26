@@ -825,7 +825,7 @@ class _YoYoPlayerState extends State<YoYoPlayer>
             }
             setState(() => hasInitError = false);
           }).catchError((e) {
-            debugPrint(e);
+            debugPrint(e.toString());
             setState(() => hasInitError = true);
           });
       }
