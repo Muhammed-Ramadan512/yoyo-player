@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:orientation/orientation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:yoyo_player/src/responses/play_response.dart';
 import 'package:yoyo_player/src/utils/utils.dart';
 import 'package:yoyo_player/src/widget/widget_bottombar.dart';
@@ -347,25 +347,25 @@ class _YoYoPlayerState extends State<YoYoPlayer>
                           });
                         },
                       ),
-                      InkWell(
-                        onTap: () => toggleFullScreen(),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 2),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 3, vertical: 0),
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Icon(
-                            Icons.fullscreen,
-                            color: Colors.white,
-                            size: 33,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 17,
-                      ),
+                      // InkWell(
+                      //   onTap: () => toggleFullScreen(),
+                      //   child: Container(
+                      //     margin: EdgeInsets.symmetric(horizontal: 2),
+                      //     padding:
+                      //         EdgeInsets.symmetric(horizontal: 3, vertical: 0),
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.grey,
+                      //         borderRadius: BorderRadius.circular(5)),
+                      //     child: Icon(
+                      //       Icons.fullscreen,
+                      //       color: Colors.white,
+                      //       size: 33,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   width: 17,
+                      // ),
                     ],
                   ),
                 ),
@@ -586,7 +586,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
         if (isNetwork) {
           url = sourceURL;
         } else {
-          print(match);
           final dataURL = match!.group(0);
           url = "$dataURL$sourceURL";
           debugPrint("--- hls child url integration ---\nchild url :$url");
@@ -600,7 +599,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
             if (isNetwork) {
               auURL = audioURL;
             } else {
-              print(match);
               final auDataURL = match!.group(0);
               auURL = "$auDataURL$audioURL";
               debugPrint("url network audio  $url $audioURL");
@@ -639,8 +637,8 @@ class _YoYoPlayerState extends State<YoYoPlayer>
     videoInit(url);
     controller!.addListener(() async {
       if (controller!.value.isInitialized && controller!.value.isPlaying) {
-        if (!await Wakelock.enabled) {
-          await Wakelock.enable();
+        if (!await WakelockPlus.enabled) {
+          await WakelockPlus.enable();
         }
 
         setState(() {
@@ -652,7 +650,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 
         if (widget.isVideoProgressenable == 1 && widget.contentViewId != null) {
           if (controller!.value.position.inSeconds != null) {
-            print(controller!.value.position.inSeconds);
             controller!.value.position.inSeconds;
             final second = controller!.value.position.inSeconds;
             if (second != null) {
@@ -664,8 +661,8 @@ class _YoYoPlayerState extends State<YoYoPlayer>
           }
         }
       } else {
-        if (await Wakelock.enabled) {
-          await Wakelock.disable();
+        if (await WakelockPlus.enabled) {
+          await WakelockPlus.disable();
           setState(() {});
         }
       }
@@ -693,7 +690,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 
   Future<void> updateVideoProgress() async {
     try {
-      print(watchedAnalaysis.toList());
       final url = widget.domianUrl;
 
       if (watchedAnalaysis.isNotEmpty) {
@@ -711,7 +707,7 @@ class _YoYoPlayerState extends State<YoYoPlayer>
               'Content-Type': 'application/json',
               "Authorization": "Bearer ${widget.authToken}",
             });
-        print(respond.body);
+
         if (respond.statusCode == 200) {
           watchedAnalaysis = {};
         }
@@ -928,8 +924,8 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 
     controller!.addListener(() async {
       if (controller!.value.isInitialized && controller!.value.isPlaying) {
-        if (!await Wakelock.enabled) {
-          await Wakelock.enable();
+        if (!await WakelockPlus.enabled) {
+          await WakelockPlus.enable();
         }
 
         setState(() {
@@ -941,7 +937,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
 
         if (widget.isVideoProgressenable == 1 && widget.contentViewId != null) {
           if (controller!.value.position.inSeconds != null) {
-            print(controller!.value.position.inSeconds);
             controller!.value.position.inSeconds;
             final second = controller!.value.position.inSeconds;
             if (second != null) {
@@ -953,8 +948,8 @@ class _YoYoPlayerState extends State<YoYoPlayer>
           }
         }
       } else {
-        if (await Wakelock.enabled) {
-          await Wakelock.disable();
+        if (await WakelockPlus.enabled) {
+          await WakelockPlus.disable();
           setState(() {});
         }
       }
@@ -974,7 +969,6 @@ class _YoYoPlayerState extends State<YoYoPlayer>
   }
 
   void m3u8clean() async {
-    print(yoyo.length);
     for (int i = 2; i < yoyo.length; i++) {
       try {
         final Directory directory = await getApplicationSupportDirectory();
