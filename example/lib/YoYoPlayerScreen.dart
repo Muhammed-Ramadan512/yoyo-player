@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:yoyo_player/yoyo_player.dart';
 
 class YoYoPlayerScreen extends StatefulWidget {
