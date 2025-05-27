@@ -973,7 +973,9 @@ class _YoYoPlayerState extends State<YoYoPlayer>
       try {
         final Directory directory = await getApplicationSupportDirectory();
         final File file = File('${directory.path}/${yoyo[i].dataQuality}.m3u8');
-        file.delete();
+        if (await file.exists()) {
+          file.delete();
+        }
         debugPrint("delete success $file");
       } catch (e) {
         debugPrint("Couldn't delete file $e");
